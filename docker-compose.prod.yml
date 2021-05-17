@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  api:
+    container_name: api-service
+    build: ./api/Dockerfile-prod
+    volumes:
+    - ./api:/usr/src/app
+    command: sh -c "npm run build && npm run start:prod"
+    env_file:
+    - ./api/.env.docker
+    networks:
+      api_net:
+        ipv4_address: 172.105.1.2
+    depends_on:
+    - mongodb
+
+  mongodb:
+    image: mongo:4.2.8-bionic
+    volumes:
+    - mongodb_data:/data/db
+    networks:
+      api_net:
+        ipv4_address: 172.105.1.3
+
+networks:
+  api_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.105.1.0/24
+
+volumes:
+  mongodb_data:
