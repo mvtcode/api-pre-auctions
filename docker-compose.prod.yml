@@ -3,7 +3,9 @@ version: "3"
 services:
   api:
     container_name: api-service
-    build: ./api/Dockerfile-prod
+    build: 
+      context: ./api
+      dockerfile: Dockerfile-prod
     volumes:
     - ./api:/usr/src/app
     command: sh -c "npm run build && npm run start:prod"
