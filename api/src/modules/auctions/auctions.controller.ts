@@ -74,6 +74,22 @@ export class AuctionsController {
 			throw new HttpException('Email already exists', HttpStatus.CONFLICT);
 		}
 
+    const yourReferrerCodeCount = await this.auctionsService.count({
+      your_referrer_code: createDto.your_referrer_code
+    });
+    if (yourReferrerCodeCount > 0) {
+			throw new HttpException('Your referrer code already exists', HttpStatus.CONFLICT);
+		}
+
+    if (createDto.referrer_code) {
+      const referrerCodeCount = await this.auctionsService.count({
+        your_referrer_code: createDto.referrer_code
+      });
+      if (referrerCodeCount === 0) {
+        throw new HttpException('Referrer code is not exist', HttpStatus.BAD_REQUEST);
+      }
+    }
+
     return await this.auctionsService.add(createDto);
   }
 

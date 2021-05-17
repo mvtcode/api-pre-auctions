@@ -36,61 +36,41 @@ export class CreateAuctionRequestDto {
   ksm_address: string;
 
   @ApiProperty({
-    description: "erc20 address",
+    description: "Erc20 address",
     example: "FnWdLnFhRuphztWJJLoNV4zc18dBsjpaAMboPLhLdL7zZp3",
   })
   @IsNotEmpty()
   erc20_address: string;
 
   @ApiProperty({
-    description: "email",
+    description: "Email",
 		example: "tan.mac@sotatek.com"
   })
   @IsEmail()
   email: string;
 
   @ApiProperty({
-    description: "referrer code",
-		example: "ABC25256",
+    description: "Your referrer code",
+		example: "6dff762a-b8c4-4d62-aa5b-5ed80e5dca95",
+  })
+  @IsNotEmpty()
+  your_referrer_code: string;
+
+  @ApiProperty({
+    description: "Referrer code",
+		example: "df76ae79-65a0-4d0e-999c-77acb6d17bbf",
   })
   @IsNotEmpty()
   referrer_code: string;
 }
 
-export class CreateAuctionResponseDto {
+export class CreateAuctionResponseDto extends CreateAuctionRequestDto {
   @ApiProperty({
     description: "ID",
     example: "60a223eb00a6df001d542cfb",
   })
   @IsNotEmpty()
   _id: string;
-
-  @ApiProperty({
-    description: "KSM address",
-    example: "0x449F4d71ea0acd1886e8F6EBeAAbbCe2514393ad",
-  })
-  @IsNotEmpty()
-  ksm_address: string;
-
-  @ApiProperty({
-    description: "erc20 address",
-    example: "FnWdLnFhRuphztWJJLoNV4zc18dBsjpaAMboPLhLdL7zZp3",
-  })
-  @IsNotEmpty()
-  erc20_address: string;
-
-  @ApiProperty({
-    description: "email",
-    example: "tan.mac@sotatek.com",
-  })
-  email: string;
-
-  @ApiProperty({
-    description: "referrer code",
-    example: "ABC25256",
-  })
-  @IsNotEmpty()
-  referrer_code: string;
 
   @ApiProperty({
     description: "createdAt",

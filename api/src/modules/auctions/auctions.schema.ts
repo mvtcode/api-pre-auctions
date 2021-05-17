@@ -26,6 +26,11 @@ export class Auction extends Document {
   @Prop({
     default: null,
   })
+  your_referrer_code: string;
+
+  @Prop({
+    default: null,
+  })
   referrer_code: string;
 }
 
