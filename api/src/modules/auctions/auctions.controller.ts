@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpStatus, Param, Put, Query } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuctionsService } from './auctions.service';
-import { CreateAuctionRequestDto, CreateAuctionResponseDto, UpdateAuctionRequestDto, UpdateAuctionResponseDto, QueryListReq } from './auctions.dto';
+import { CreateAuctionRequestDto, CreateAuctionResponseDto, UpdateAuctionRequestDto, UpdateAuctionResponseDto, QueryListReq, CountAuctionResponseDto } from './auctions.dto';
 import { Auction } from './auctions.schema';
 import {ParseObjectIdPipe} from '../../pipes/parse-object-id.pipe';
 
@@ -22,6 +22,23 @@ export class AuctionsController {
   @Get("")
   async getList(@Query() query: QueryListReq): Promise<Auction[]> {
     return await this.auctionsService.getList({}, {}, parseInt(query.pageIndex), parseInt(query.pageSize));
+  }
+
+  @ApiOperation({
+    operationId: 'Count',
+    description: 'Count Auction',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: CountAuctionResponseDto,
+    description: 'Count Auction',
+  })
+	@Get("count")
+  async count(): Promise<{total: number}> {
+    const total = await this.auctionsService.count({});
+    return {
+      total
+    };
   }
 
   @ApiOperation({

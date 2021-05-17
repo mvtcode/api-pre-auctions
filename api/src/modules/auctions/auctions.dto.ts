@@ -115,6 +115,13 @@ export class UpdateAuctionResponseDto {
     description: "isOk",
     example: true,
   })
-  @IsNotEmpty()
-  isOk: boolean
+  isOk: boolean;
+}
+
+export class CountAuctionResponseDto {
+  @ApiProperty({
+    description: "Total recorder auction",
+    example: 156734,
+  })
+  total: number;
 }
