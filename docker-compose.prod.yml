@@ -10,7 +10,7 @@ services:
     - ./api:/usr/src/app
     command: sh -c "npm run build && npm run start:prod"
     env_file:
-    - ./api/.env.docker
+    - ./.env
     networks:
       api_net:
         ipv4_address: 172.105.1.2

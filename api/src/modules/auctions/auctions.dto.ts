@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsByteLength, Length, IsMongoId, IsNumberString, Matches, isEmail, IsEmail } from "class-validator";
+import { IsNotEmpty, IsEmail } from "class-validator";
 
 export class QueryListReq {
   @ApiProperty({

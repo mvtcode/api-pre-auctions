@@ -4,7 +4,7 @@ import { AuctionsService } from './auctions.service';
 import { CreateAuctionRequestDto, CreateAuctionResponseDto, UpdateAuctionRequestDto, UpdateAuctionResponseDto, QueryListReq, CountAuctionResponseDto } from './auctions.dto';
 import { Auction } from './auctions.schema';
 // import {ParseObjectIdPipe} from '../../pipes/parse-object-id.pipe';
-import { isPolkadotAddress, isEmail, isUUIDv4, isAddress, validateHCaptcha } from '../../libs/validate';
+import { isPolkadotAddress, isEmail, isUUIDv4, validateHCaptcha } from '../../libs/validate';
 
 const isUseCaptcha = process.env.HCAPTCHA_ENABLE == 'true';
 

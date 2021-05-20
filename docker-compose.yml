@@ -8,7 +8,7 @@ services:
     - ./api:/usr/src/app
     command: npm run start:dev
     env_file:
-    - ./api/.env.docker
+    - ./.env
     networks:
       api_net:
         ipv4_address: 172.105.1.2
@@ -22,7 +22,7 @@ services:
     networks:
       api_net:
         ipv4_address: 172.105.1.3
-        
+
   redis:
     container_name: redis-server
     image: redis:6.0.6-alpine3.12
