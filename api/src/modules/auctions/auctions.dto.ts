@@ -29,7 +29,7 @@ export class UpdateAuctionDto extends CreateAuctionDto {
 export class CreateAuctionRequestDto {
   @ApiProperty({
     description: "KSM address",
-		example: "0x449F4d71ea0acd1886e8F6EBeAAbbCe2514393ad",
+		example: "5DkdRqVZy9GESGwSWiqYumLzXkbYZ3kaxhjkyPgm7pgo5iMe",
     required: true,
   })
   @IsNotEmpty()
@@ -37,7 +37,7 @@ export class CreateAuctionRequestDto {
 
   @ApiProperty({
     description: "Erc20 address",
-    example: "FnWdLnFhRuphztWJJLoNV4zc18dBsjpaAMboPLhLdL7zZp3",
+    example: "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
   })
   @IsNotEmpty()
   erc20_address: string;
