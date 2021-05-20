@@ -1,3 +1,5 @@
+import { response } from "express";
+
 const Web3 = require('web3');
 const { decodeAddress, encodeAddress } = require('@polkadot/keyring');
 const { hexToU8a, isHex } = require('@polkadot/util');
@@ -27,9 +29,9 @@ export const isAddress = address => {
 	return Web3.utils.isAddress(address);
 }
 
-export const validateHCaptcha = code => {
+export const validateHCaptcha = async code => {
 	try {
-		const res = verify(process.env.HCAPTCHA_SECRET, code);
+		const res = await verify(process.env.HCAPTCHA_SECRET, code);
 		return res.success;
 	} catch (e) {
 		console.error(e);
