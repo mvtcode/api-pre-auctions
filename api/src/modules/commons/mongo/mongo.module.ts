@@ -14,14 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
         autoIndex: false
       }
     ),
-
-    // MongooseModule.forRoot(
-    //   `mongodb://${process.env.DB_HOST}/${process.env.DB_TRANSACTION_NAME}`,
-    //   {
-    //     connectionName: process.env.DB_TRANSACTION_NAME,
-    //     autoIndex: false
-    //   }
-    // ),
   ]
 })
 export class MongoModule {

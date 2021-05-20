@@ -26,7 +26,7 @@ export class CreateAuctionDto {
 export class UpdateAuctionDto extends CreateAuctionDto {
 }
 
-export class CreateAuctionRequestDto {
+class RequestBaseDto {
   @ApiProperty({
     description: "KSM address",
 		example: "5DkdRqVZy9GESGwSWiqYumLzXkbYZ3kaxhjkyPgm7pgo5iMe",
@@ -64,7 +64,16 @@ export class CreateAuctionRequestDto {
   referrer_code: string;
 }
 
-export class CreateAuctionResponseDto extends CreateAuctionRequestDto {
+export class CreateAuctionRequestDto extends RequestBaseDto {
+  @ApiProperty({
+    description: "Captcha code",
+		example: "...",
+  })
+  @IsNotEmpty()
+  captcha_code: string;
+}
+
+export class CreateAuctionResponseDto extends RequestBaseDto {
   @ApiProperty({
     description: "ID",
     example: "60a223eb00a6df001d542cfb",
@@ -87,7 +96,7 @@ export class CreateAuctionResponseDto extends CreateAuctionRequestDto {
   updatedAt: string;
 }
 
-export class UpdateAuctionRequestDto extends CreateAuctionRequestDto {
+export class UpdateAuctionRequestDto extends RequestBaseDto {
 }
 
 export class UpdateAuctionResponseDto {

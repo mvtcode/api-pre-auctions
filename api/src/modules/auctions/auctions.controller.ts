@@ -4,7 +4,9 @@ import { AuctionsService } from './auctions.service';
 import { CreateAuctionRequestDto, CreateAuctionResponseDto, UpdateAuctionRequestDto, UpdateAuctionResponseDto, QueryListReq, CountAuctionResponseDto } from './auctions.dto';
 import { Auction } from './auctions.schema';
 // import {ParseObjectIdPipe} from '../../pipes/parse-object-id.pipe';
-import { isPolkadotAddress, isEmail, isUUIDv4, isAddress } from '../../libs/validate';
+import { isPolkadotAddress, isEmail, isUUIDv4, isAddress, validateHCaptcha } from '../../libs/validate';
+
+const isUseCaptcha = process.env.HCAPTCHA_ENABLE == 'true';
 
 @ApiTags("auctions")
 @Controller('auctions')
@@ -36,7 +38,7 @@ export class AuctionsController {
   // })
 	@Get("count")
   async count(): Promise<{total: number}> {
-    const total = await this.auctionsService.count({});
+    const total = await this.auctionsService.countAll();
     return {
       total
     };
@@ -56,8 +58,9 @@ export class AuctionsController {
   })
 	@Post("")
   async add(@Body() createDto: CreateAuctionRequestDto): Promise<Auction> {
-
     const email = createDto.email;
+
+    // validate data input
     if (!isEmail(email)) {
       throw new HttpException('Email not valid', HttpStatus.BAD_REQUEST);
     }
@@ -78,6 +81,12 @@ export class AuctionsController {
       throw new HttpException('ERC20 address not valid', HttpStatus.BAD_REQUEST);
     }
 
+    // validate captcha
+    if (isUseCaptcha && !await validateHCaptcha(createDto.captcha_code)) {
+      throw new HttpException('Captcha is wrong', HttpStatus.BAD_REQUEST);
+    }
+
+    // validate data in db
 		const count = await this.auctionsService.count({email});
 		if (count > 0) {
 			throw new HttpException('Email already exists', HttpStatus.CONFLICT);
@@ -99,6 +108,7 @@ export class AuctionsController {
       }
     }
 
+    // storage data
     return await this.auctionsService.add(createDto);
   }
 

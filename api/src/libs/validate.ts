@@ -1,6 +1,7 @@
 const Web3 = require('web3');
 const { decodeAddress, encodeAddress } = require('@polkadot/keyring');
 const { hexToU8a, isHex } = require('@polkadot/util');
+const {verify} = require('hcaptcha');
 
 export const isEmail = email => {
   if (typeof email !== 'string') return false;
@@ -24,4 +25,14 @@ export const isUUIDv4 = uuid => {
 
 export const isAddress = address => {
 	return Web3.utils.isAddress(address);
+}
+
+export const validateHCaptcha = code => {
+	try {
+		const res = verify(process.env.HCAPTCHA_SECRET, code);
+		return res.success;
+	} catch (e) {
+		console.error(e);
+		return false;
+	}
 }

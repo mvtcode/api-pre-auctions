@@ -4,11 +4,13 @@ import { Model } from "mongoose";
 import { ObjectId } from "mongodb";
 import { Auction } from './auctions.schema';
 import { CreateAuctionDto, UpdateAuctionDto } from './auctions.dto';
+import { RedisService } from 'nestjs-redis';
 
 @Injectable()
 export class AuctionsService {
 	constructor(
     @InjectModel(Auction.name) private auctionModel: Model<Auction>,
+		private readonly redisService: RedisService,
   ) {}
 
 	async getAll(): Promise<Auction[]> {
@@ -17,6 +19,20 @@ export class AuctionsService {
 
 	async findOne(where: any): Promise<Auction> {
     return await this.auctionModel.findOne(where);
+  }
+
+	async countAll(): Promise<number> {
+		const cacheKey = 'test';
+		const redis = this.redisService.getClient();
+
+		const dataCache = await redis.get(cacheKey);
+		if (dataCache) {
+			return parseInt(dataCache);
+		}
+
+		const count = await this.auctionModel.count({});
+    await redis.set(cacheKey, count, 'EX', 30);
+		return count;
   }
 
 	async count(where: any): Promise<number> {
