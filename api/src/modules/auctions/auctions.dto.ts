@@ -18,7 +18,7 @@ export class QueryListReq {
 
 export class CreateAuctionDto {
 	ksm_address: string;
-	erc20_address: string;
+	// erc20_address: string;
 	email: string;
 	referrer_code: string;
 }
@@ -35,12 +35,12 @@ class RequestBaseDto {
   @IsNotEmpty()
   ksm_address: string;
 
-  @ApiProperty({
-    description: "Erc20 address",
-    example: "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
-  })
-  @IsNotEmpty()
-  erc20_address: string;
+  // @ApiProperty({
+  //   description: "Erc20 address",
+  //   example: "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
+  // })
+  // @IsNotEmpty()
+  // erc20_address: string;
 
   @ApiProperty({
     description: "Email",

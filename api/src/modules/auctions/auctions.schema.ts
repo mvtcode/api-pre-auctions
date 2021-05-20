@@ -10,11 +10,11 @@ export class Auction extends Document {
   })
   ksm_address: string;
 
-	@Prop({
-    index: true,
-    required: true,
-  })
-  erc20_address: string;
+	// @Prop({
+  //   index: true,
+  //   required: true,
+  // })
+  // erc20_address: string;
 
   @Prop({
     index: true,

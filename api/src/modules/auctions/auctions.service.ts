@@ -6,6 +6,8 @@ import { Auction } from './auctions.schema';
 import { CreateAuctionDto, UpdateAuctionDto } from './auctions.dto';
 import { RedisService } from 'nestjs-redis';
 
+const REGISTERED_ADD = parseInt(process.env.REGISTERED_ADD || '0');
+
 @Injectable()
 export class AuctionsService {
 	constructor(
@@ -30,7 +32,7 @@ export class AuctionsService {
 			return parseInt(dataCache);
 		}
 
-		const count = await this.auctionModel.count({});
+		const count = await this.auctionModel.count({}) + REGISTERED_ADD;
     await redis.set(cacheKey, count, 'EX', 30);
 		return count;
   }

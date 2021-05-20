@@ -77,9 +77,9 @@ export class AuctionsController {
       throw new HttpException('KMS address not valid', HttpStatus.BAD_REQUEST);
     }
 
-    if (!isAddress(createDto.erc20_address)) {
-      throw new HttpException('ERC20 address not valid', HttpStatus.BAD_REQUEST);
-    }
+    // if (!isAddress(createDto.erc20_address)) {
+    //   throw new HttpException('ERC20 address not valid', HttpStatus.BAD_REQUEST);
+    // }
 
     // validate captcha
     if (isUseCaptcha && !await validateHCaptcha(createDto.captcha_code)) {
