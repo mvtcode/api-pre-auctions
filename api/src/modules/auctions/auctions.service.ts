@@ -5,15 +5,20 @@ import { ObjectId } from "mongodb";
 import { Auction } from './auctions.schema';
 import { CreateAuctionDto, UpdateAuctionDto } from './auctions.dto';
 import { RedisService } from 'nestjs-redis';
+import { Redis } from 'ioredis';
 
 const REGISTERED_ADD = parseInt(process.env.REGISTERED_ADD || '0');
 
 @Injectable()
 export class AuctionsService {
+	private redis: Redis;
+
 	constructor(
     @InjectModel(Auction.name) private auctionModel: Model<Auction>,
 		private readonly redisService: RedisService,
-  ) {}
+  ) {
+		this.redis = this.redisService.getClient();
+	}
 
 	async getAll(): Promise<Auction[]> {
     return await this.auctionModel.find();
@@ -24,16 +29,15 @@ export class AuctionsService {
   }
 
 	async countAll(): Promise<number> {
-		const cacheKey = 'test';
-		const redis = this.redisService.getClient();
+		const cacheKey = 'auctions-count';
 
-		const dataCache = await redis.get(cacheKey);
+		const dataCache = await this.redis.get(cacheKey);
 		if (dataCache) {
 			return parseInt(dataCache);
 		}
 
 		const count = await this.auctionModel.count({}) + REGISTERED_ADD;
-    await redis.set(cacheKey, count, 'EX', 30);
+    await this.redis.set(cacheKey, count, 'EX', 30);
 		return count;
   }
 
