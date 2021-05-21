@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ReferalCodeService } from './referal-code.service';
 import { ReferalCodeController } from './referal-code.controller';
+import { AuctionsModule } from '../auctions/auctions.module';
+// import { AuctionsService } from '../auctions/auctions.service';
 
 @Module({
+  imports: [AuctionsModule],
   controllers: [ReferalCodeController],
-  providers: [ReferalCodeService]
+  providers: [ReferalCodeService],
 })
 export class ReferalCodeModule {}

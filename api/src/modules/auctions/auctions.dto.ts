@@ -63,7 +63,7 @@ class RequestBaseDto {
 
   @ApiProperty({
     description: "Your referrer code",
-		example: "6dff762a-b8c4-4d62-aa5b-5ed80e5dca95",
+		example: "WCFMLSM50BY7RMYDF3MJ",
     type: String,
   })
   @IsNotEmpty()
@@ -71,7 +71,7 @@ class RequestBaseDto {
 
   @ApiProperty({
     description: "Referrer code",
-		example: "df76ae79-65a0-4d0e-999c-77acb6d17bbf",
+		example: "ISF2GXUEH75N6XJLDM1T",
     type: String,
   })
   @IsNotEmpty()

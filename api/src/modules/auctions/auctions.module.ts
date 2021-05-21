@@ -9,6 +9,7 @@ import { Auction, AuctionSchema } from './auctions.schema';
     MongooseModule.forFeature([{ name: Auction.name, schema: AuctionSchema }])
   ],
   controllers: [AuctionsController],
-  providers: [AuctionsService]
+  providers: [AuctionsService],
+  exports: [AuctionsService]
 })
 export class AuctionsModule {}
