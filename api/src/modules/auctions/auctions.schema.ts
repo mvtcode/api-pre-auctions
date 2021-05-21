@@ -10,6 +10,13 @@ export class Auction extends Document {
   })
   ksm_address: string;
 
+  @Prop({
+    index: false,
+    required: false,
+    default: 0,
+  })
+  ksm_number: Number;
+
 	// @Prop({
   //   index: true,
   //   required: true,

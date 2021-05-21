@@ -18,6 +18,7 @@ export class QueryListReq {
 
 export class CreateAuctionDto {
 	ksm_address: string;
+  ksm_number?: number;
 	// erc20_address: string;
 	email: string;
 	referrer_code: string;
@@ -43,8 +44,19 @@ class RequestBaseDto {
   // erc20_address: string;
 
   @ApiProperty({
+    description: "KSM number",
+    type: Number,
+    example: 123.5,
+    required: false,
+    default: 0,
+  })
+  @IsNotEmpty()
+  ksm_number: number;
+
+  @ApiProperty({
     description: "Email",
-		example: "tan.mac@sotatek.com"
+		example: "tan.mac@sotatek.com",
+    type: String,
   })
   @IsEmail()
   email: string;
@@ -52,6 +64,7 @@ class RequestBaseDto {
   @ApiProperty({
     description: "Your referrer code",
 		example: "6dff762a-b8c4-4d62-aa5b-5ed80e5dca95",
+    type: String,
   })
   @IsNotEmpty()
   your_referrer_code: string;
@@ -59,6 +72,7 @@ class RequestBaseDto {
   @ApiProperty({
     description: "Referrer code",
 		example: "df76ae79-65a0-4d0e-999c-77acb6d17bbf",
+    type: String,
   })
   @IsNotEmpty()
   referrer_code: string;
@@ -68,6 +82,8 @@ export class CreateAuctionRequestDto extends RequestBaseDto {
   @ApiProperty({
     description: "Captcha code",
 		example: "...",
+    type: String,
+    default: '',
   })
   @IsNotEmpty()
   captcha_code: string;
@@ -77,22 +93,22 @@ export class CreateAuctionResponseDto extends RequestBaseDto {
   @ApiProperty({
     description: "ID",
     example: "60a223eb00a6df001d542cfb",
+    type: String,
   })
-  @IsNotEmpty()
   _id: string;
 
   @ApiProperty({
     description: "createdAt",
     example: "2021-05-17T08:06:03.117Z",
+    type: String,
   })
-  @IsNotEmpty()
   createdAt: string;
 
   @ApiProperty({
     description: "updatedAt",
     example: "2021-05-17T08:06:03.117Z",
+    type: String,
   })
-  @IsNotEmpty()
   updatedAt: string;
 }
 
