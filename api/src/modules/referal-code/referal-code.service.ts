@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { randomString } from '../../libs/validate';
 
 @Injectable()
 export class ReferalCodeService {
 	generate(): string {
-    return uuidv4();
-  }
+        return randomString(20);
+    }
 }

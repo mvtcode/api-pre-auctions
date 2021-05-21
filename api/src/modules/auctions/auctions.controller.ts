@@ -4,7 +4,7 @@ import { AuctionsService } from './auctions.service';
 import { CreateAuctionRequestDto, CreateAuctionResponseDto, UpdateAuctionRequestDto, UpdateAuctionResponseDto, QueryListReq, CountAuctionResponseDto } from './auctions.dto';
 import { Auction } from './auctions.schema';
 // import {ParseObjectIdPipe} from '../../pipes/parse-object-id.pipe';
-import { isPolkadotAddress, isEmail, isUUIDv4, validateHCaptcha } from '../../libs/validate';
+import { isPolkadotAddress, isEmail, validateHCaptcha, isRefCode } from '../../libs/validate';
 
 const isUseCaptcha = process.env.HCAPTCHA_ENABLE == 'true';
 
@@ -65,11 +65,11 @@ export class AuctionsController {
       throw new HttpException('Email not valid', HttpStatus.BAD_REQUEST);
     }
 
-    if (!isUUIDv4(createDto.your_referrer_code)) {
+    if (!isRefCode(createDto.your_referrer_code)) {
       throw new HttpException('Your referrer code not valid', HttpStatus.BAD_REQUEST);
     }
 
-    if (createDto.referrer_code && !isUUIDv4(createDto.referrer_code)) {
+    if (createDto.referrer_code && !isRefCode(createDto.referrer_code)) {
       throw new HttpException('Referrer code not valid', HttpStatus.BAD_REQUEST);
     }
 

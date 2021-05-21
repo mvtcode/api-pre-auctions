@@ -38,3 +38,18 @@ export const validateHCaptcha = async code => {
 		return false;
 	}
 }
+
+export const isRefCode = val => {
+	const refRegex = /^[A-Z0-9]{20}$/i;
+	return refRegex.test(val);
+}
+
+export const randomString = length => {
+	let result = []
+	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+	const charactersLength = characters.length
+	for (let i = 0; i < length; i++) {
+		result.push(characters.charAt(Math.floor(Math.random() * charactersLength)))
+	}
+	return result.join('')
+}
