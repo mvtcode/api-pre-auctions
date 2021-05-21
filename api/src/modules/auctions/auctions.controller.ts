@@ -92,6 +92,11 @@ export class AuctionsController {
 			throw new HttpException('Email already exists', HttpStatus.CONFLICT);
 		}
 
+    const countKsmAddress = await this.auctionsService.count({ksm_address: createDto.ksm_address});
+    if (countKsmAddress > 0) {
+			throw new HttpException('Ksm address already exists', HttpStatus.CONFLICT);
+		}
+
     const yourReferrerCodeCount = await this.auctionsService.count({
       your_referrer_code: createDto.your_referrer_code
     });

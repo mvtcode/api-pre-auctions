@@ -7,6 +7,7 @@ export class Auction extends Document {
   @Prop({
     index: true,
     required: true,
+    unique: true,
   })
   ksm_address: string;
 
