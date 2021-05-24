@@ -12,7 +12,7 @@ export class generateResponseDto {
 export class generateRequestDto {
   @ApiProperty({
     description: "KSM address",
-    example: "ISF2GXUEH75N6XJLDM1T",
+    example: "GeNXk1NZ2YmQ5tHbYCLRfWYDaPiFhyH31AFLxq1XGKknzH4",
     type: String,
     required: false,
   })
